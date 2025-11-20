@@ -1,3 +1,30 @@
 spring:
   application:
     name: kafka-snowflake-ingest
+
+kafka:
+  bootstrap:
+    servers: localhost:9092
+  group:
+    id: kafka-to-snowflake
+  topic: transactions
+
+snowflake:
+  url: jdbc:snowflake://SBTLARP-YOC95885.snowflakecomputing.com
+  user: MEAKUB
+  password: Snowflake@104303
+  warehouse: kafka_wh
+  database: kafka_db
+  schema: kafka_schema
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    jmx:
+      enabled: true
+  metrics:
+    enable:
+      all: true

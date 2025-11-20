@@ -34,17 +34,14 @@ public class FileProcessorService {
                     log.warn("Skipping malformed line: {}", line);
                     continue;
                 }
-                // convert CSV row to JSON for Snowflake Sink
                 String json = String.format(
-                        "{\"trade_id\":\"%s\", \"trade_date\":\"%s\", \"fund\":\"%s\", \"trader\":\"%s\", \"security\":\"%s\", \"price\":%s, \"quantity\":%s}",
+                        "{\"trade_id\":\"%s\", \"trade_date\":\"%s\", \"fund\":\"%s\", \"trader\":\"%s\", \"security\":\"%s\", \"quantity\":%s, \"price\":%s}",
                         UUID.randomUUID(),
                         c[0], c[1], c[2], c[3], c[4], c[5]);
 
                 kafkaTemplate.send("transactions", json);
             }
-
             log.info("Finished processing file {}", path);
-
         } catch (Exception e) {
             log.error("Error processing file", e);
         }

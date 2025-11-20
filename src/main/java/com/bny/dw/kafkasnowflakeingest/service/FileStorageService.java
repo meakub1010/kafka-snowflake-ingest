@@ -28,12 +28,7 @@ public class FileStorageService {
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
-
         Path dest = folder.resolve(file.filename());
-
-        // return file.transferTo(dest)
-        // .then(Mono.fromRunnable(() -> processor.processFileAsync(dest)))
-        // .thenReturn(dest);
         return file.transferTo(dest)
                 .doOnSuccess(v -> processor.processFileAsync(dest))
                 .thenReturn(dest);
