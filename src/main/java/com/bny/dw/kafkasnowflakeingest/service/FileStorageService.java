@@ -30,7 +30,9 @@ public class FileStorageService {
         }
         Path dest = folder.resolve(file.filename());
         return file.transferTo(dest)
-                .doOnSuccess(v -> processor.processFileAsync(dest))
+                .then(Mono.fromRunnable(() -> {
+                    processor.processFileAsync(dest);
+                }))
                 .thenReturn(dest);
     }
 }

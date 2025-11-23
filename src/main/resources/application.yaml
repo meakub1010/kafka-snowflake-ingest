@@ -3,14 +3,15 @@ spring:
     name: kafka-snowflake-ingest
 
 kafka:
+  topic: transactions
   bootstrap:
     servers: localhost:9092
   group:
     id: kafka-to-snowflake
-  topic: transactions
+
 
 snowflake:
-  url: jdbc:snowflake://SBTLARP-YOC95885.snowflakecomputing.com
+  url: jdbc:snowflake://SBTLARP-YOC95885.snowflakecomputing.com/?disableCloudMetadata=true
   user: MEAKUB
   password: Snowflake@104303
   warehouse: kafka_wh

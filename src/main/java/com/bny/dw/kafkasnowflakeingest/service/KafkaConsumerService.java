@@ -23,7 +23,7 @@ public class KafkaConsumerService {
         this.snowflakeService = snowflakeService;
     }
 
-    @KafkaListener(topics = "${kafka.topic}", groupId = "${kafka.group.id}")
+    @KafkaListener(topics = "${kafka.topic}", groupId = "${kafka.group.id}", concurrency = "3")
     public void listen(String message) {
         log.info("Consumed message: {}", message);
 
